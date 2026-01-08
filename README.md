@@ -8,10 +8,9 @@ Plan is to have `lua/alexandersoen/core/languages.lua` as the main spot to add l
 Some TODOs I should get around doing at some point.
 In order of importance (?), not necessarily in implementation order.
 
-    - [ ] Python setup.
-    - [ ] Tab complete / suggestions.
-    - [ ] Setup `folke/trouble.nvim`.
-    - [ ] Setup `mbbill/undotree`.
-    - [ ] Some type of colour scheme.
-    - [ ] LLM / Agentic memes ?
-
+- [ ] Python setup.
+- [ ] Tab complete / suggestions.
+- [ ] Setup `folke/trouble.nvim`.
+- [ ] Setup `mbbill/undotree`.
+- [ ] Some type of colour scheme.
+- [ ] LLM / Agentic memes ?
