@@ -9,7 +9,17 @@ return {
   },
   config = function()
     require("telescope").setup({
-      -- Your telescope specific config here
+      defaults = {
+        wrap_results = false,
+        sorting_strategy = "ascending"
+      }
+    })
+
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "TelescopePreviewerLoaded",
+      callback = function()
+        vim.wo.wrap = true
+      end,
     })
   end,
 }
