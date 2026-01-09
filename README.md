@@ -12,5 +12,5 @@ In order of importance (?), not necessarily in implementation order.
 - [ ] Tab complete / suggestions.
 - [ ] Setup `folke/trouble.nvim`.
 - [ ] Setup `mbbill/undotree`.
-- [ ] Some type of colour scheme.
+- [x] Some type of colour scheme.
 - [ ] LLM / Agentic memes ?
