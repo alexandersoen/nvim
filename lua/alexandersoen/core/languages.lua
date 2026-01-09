@@ -27,7 +27,6 @@ M.config = {
   },
   tex = {
     lsp = "texlab",
-    formatter = "latexindent", -- or "bibtex-tidy" for bibliography
     lsp_opts = {
       settings = {
         texlab = {
@@ -49,6 +48,8 @@ M.config = {
         },
       },
     },
+    formatter = "tex-fmt",
+    formatter_opts = { "--nowrap" }
   }
 }
 
