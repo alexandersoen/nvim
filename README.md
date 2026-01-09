@@ -10,7 +10,7 @@ In order of importance (?), not necessarily in implementation order.
 
 - [ ] Python setup.
 - [ ] Tab complete / suggestions.
-- [ ] Setup `folke/trouble.nvim`.
+- [x] Setup `folke/trouble.nvim`.
 - [ ] Setup `mbbill/undotree`.
 - [x] Some type of colour scheme.
 - [ ] LLM / Agentic memes ?
