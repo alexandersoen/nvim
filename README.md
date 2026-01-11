@@ -8,6 +8,8 @@ Plan is to have `lua/alexandersoen/core/languages.lua` as the main spot to add l
 Some TODOs I should get around doing at some point.
 In order of importance (?), not necessarily in implementation order.
 
+- [ ] Finish the bufferline (tm).
+- [ ] Statusline (tmtm).
 - [ ] Python setup.
 - [x] Tab complete / suggestions (Switched to blink.cmp).
 - [x] Setup `folke/trouble.nvim`.
@@ -15,4 +17,4 @@ In order of importance (?), not necessarily in implementation order.
 - [x] Some type of colour scheme.
 - [ ] LLM / Agentic memes ?
 - [x] Change from netwr to oil.nvim.
-- [x] Add some gitsigns
+- [x] Add some gitsigns.
