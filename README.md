@@ -14,3 +14,5 @@ In order of importance (?), not necessarily in implementation order.
 - [ ] Setup `mbbill/undotree`.
 - [x] Some type of colour scheme.
 - [ ] LLM / Agentic memes ?
+- [x] Change from netwr to oil.nvim.
+- [x] Add some gitsigns
