@@ -6,6 +6,6 @@ local keymap = vim.keymap
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- netrw
-keymap.set("n", "<leader>pv", vim.cmd.Lexplore, { desc = "Toggle Explorer" })
-keymap.set("n", "<leader>pe", vim.cmd.Ex, { desc = "Open Explorer" })
+-- netrw (disabled because using oil)
+-- keymap.set("n", "<leader>pv", vim.cmd.Lexplore, { desc = "Toggle Explorer" })
+-- keymap.set("n", "<leader>pe", vim.cmd.Ex, { desc = "Open Explorer" })
