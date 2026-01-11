@@ -1,10 +1,11 @@
 -- Colour schemes.
 
 return {
-  "rebelot/kanagawa.nvim",
+  "folke/tokyonight.nvim",
+  lazy = false,
+  priority = 1000,
+  opts = {},
   config = function()
-    require("kanagawa").setup()
-
-    vim.cmd("colorscheme kanagawa")
+    vim.cmd("colorscheme tokyonight")
   end
 }
