@@ -1,10 +1,10 @@
 -- Colour schemes.
 
 return {
-  "shaunsingh/nord.nvim",
+  "rebelot/kanagawa.nvim",
   config = function()
-    vim.g.nord_contrast = true
+    require("kanagawa").setup()
 
-    require("nord").set()
+    vim.cmd("colorscheme kanagawa")
   end
 }

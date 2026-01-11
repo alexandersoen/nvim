@@ -45,9 +45,11 @@ return {
     },
 
     completion = {
-      menu = { border = 'single' },
+      menu = { border = 'single', auto_show = false },
       documentation = { window = { border = 'single' } },
+      ghost_text = { enabled = true, show_with_menu = true }
     },
+
 
     -- Signature help (parameter hints)
     signature = {
