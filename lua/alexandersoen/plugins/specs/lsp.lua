@@ -6,8 +6,7 @@ return {
   dependencies = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
   },
 
   config = function()
@@ -23,9 +22,22 @@ return {
 
     -- Setup capabilities
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    local has_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+    local has_cmp, cmp_lsp = pcall(require, "blink.cmp")
     if has_cmp then
-      capabilities = cmp_lsp.default_capabilities()
+      -- Merge
+      capabilities = vim.tbl_deep_extend('force', capabilities,
+        cmp_lsp.get_lsp_capabilities({}, false)
+      )
+
+      -- Other stuff in "blink.cmp" docs
+      capabilities = vim.tbl_deep_extend('force', capabilities, {
+        textDocument = {
+          foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true
+          }
+        }
+      })
     end
 
     -- Set up the LSP configs

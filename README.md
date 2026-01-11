@@ -9,7 +9,7 @@ Some TODOs I should get around doing at some point.
 In order of importance (?), not necessarily in implementation order.
 
 - [ ] Python setup.
-- [ ] Tab complete / suggestions.
+- [x] Tab complete / suggestions (Switched to blink.cmp).
 - [x] Setup `folke/trouble.nvim`.
 - [ ] Setup `mbbill/undotree`.
 - [x] Some type of colour scheme.
