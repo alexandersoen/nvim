@@ -1,18 +1,27 @@
+-- UI for blah-lines. Currently only working on the "bufferline" components.
+-- Making this work with the grapple list.
+
+-- Flag to update the "ContextTab"
+local contexttab_needs_update = true
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    contexttab_needs_update = true
+  end,
+})
+vim.api.nvim_create_autocmd("User", {
+  pattern = { "GrappleUpdate", "GrappleTag", "GrappleUntag" },
+  callback = function()
+    contexttab_needs_update = true
+  end,
+})
+
 return {
   "rebelot/heirline.nvim",
-  dependencies = {
-    "cbochs/grapple.nvim",
-    "rebelot/kanagawa.nvim",
-  },
+  dependencies = { "cbochs/grapple.nvim", "nvim-tree/nvim-web-devicons" },
   config = function()
     local heirline = require("heirline")
     local utils = require("heirline.utils")
-    local conditions = require("heirline.conditions")
-
     local grapple = require("grapple")
-    local grapple_update_cond = {
-      "BufEnter", "User", pattern = { "GrappleUpdate", "GrappleTag", "GrappleUntag" }
-    }
 
     -- Setup colours
     local function setup_colours()
@@ -46,81 +55,49 @@ return {
       group = "Heirline",
     })
 
-    -- Visual separator
-    local big_sep = { provider = " │││ ", hl = { fg = "bright_fg" } }
-    local small_sep = { provider = " │ ", hl = { fg = "bright_fg" } }
-
-    -- Context tab
-    local context_tab = {
+    -- Context Tab (Current file vs Dummy)
+    local ContextTab = {
       init = function(self)
         self.filename = vim.fn.expand("%:t")
         if self.filename == "" then self.filename = "[No Name]" end
       end,
 
-      -- Update also on grapple add
-      update = grapple_update_cond,
+      update = function()
+        return contexttab_needs_update
+      end,
 
-      -- Fixed width logic: ensuring the dummy and filename slot are consistent
+      provider = function(self)
+        if grapple.exists() then return " -- GRAPPLE -- " end
+        return " " .. self.filename .. " "
+      end,
       hl = function()
-        if grapple.exists() then
-          return { fg = "gray", italic = true } -- Grayed out
-        else
-          return { fg = "green", bold = true }  -- Active/Visible
-        end
-      end,
-
-      {
-        provider = function(self)
-          if grapple.exists() then
-            -- The "Dummy" tab: Fixed size (e.g., 13 chars wide)
-            return " -- EMPTY -- "
-          else
-            -- Display actual filename (truncated if too long to maintain 'dummy' feel)
-            local name = self.filename
-            if #name > 10 then
-              name = string.sub(name, 1, 10) .. "…"
-            elseif #name <= 11 then
-              name = name .. string.rep(" ", 11 - #name)
-            end
-            return " " .. name .. " "
-          end
-        end,
-      },
-    }
-
-    context_tab = utils.surround({ "", "" }, "bright_fg", context_tab)
-
-    -- Grapple List (The rest of the tabs)
-    local grapple_tabs = {
-      update = grapple_update_cond,
-
-      provider = function()
-        local status = grapple.statusline()
-
-        if status == nil or status == "" then
-          return "" -- Hide if no tags exist
-        end
-
-        return status
+        return grapple.exists() and { fg = "gray", italic = true } or { fg = "green", bold = true }
       end,
     }
 
+    -- Define the Grapple Tab Template
+    local GrappleTabTemplate = {
+      provider = function(self)
+        return " [" .. self.grapplenum .. ": " .. (self.filename or "???") .. "] "
+      end,
+      hl = function(self)
+        return self.is_active and { fg = "green", bold = true } or { fg = "gray" }
+      end,
+    }
+
+    -- 2. Build the List Component
+    local grapple_list = require("alexandersoen.utils").make_grapplelist(GrappleTabTemplate)
+
+    -- 4. Assembly
     heirline.setup({
-      winbar = {
-        context_tab,
-        big_sep,
-        grapple_tabs,
-      },
-      opts = {
-        -- if the callback returns true, the winbar will be disabled for that window
-        -- the args parameter corresponds to the table argument passed to autocommand callbacks. :h nvim_lua_create_autocmd()
-        disable_winbar_cb = function(args)
-          return conditions.buffer_matches({
-            buftype = { "nofile", "prompt", "help", "quickfix" },
-            filetype = { "^git.*", "fugitive", "Trouble", "dashboard" },
-          }, args.buf)
-        end,
+      tabline = {
+        -- utils.surround({ "", "" }, "bright_bg", ContextTab),
+        utils.surround({ "", "" }, "bright_bg", ContextTab),
+        -- { provider = " │ " },
+        { provider = " " },
+        grapple_list,
+        { provider = "%=" }, -- Fill space
       },
     })
-  end
+  end,
 }

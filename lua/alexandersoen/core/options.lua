@@ -22,7 +22,7 @@ opt.softtabstop = 2  -- Same but for editing
 opt.termguicolors = true      -- Enable 24-bit RGB colors
 opt.cursorline = true         -- Highlight the line the cursor is on
 opt.scrolloff = 8             -- Keep 8 lines above/below cursor when scrolling
-opt.signcolumn = "yes"        -- Always show gutter (prevents shifting text)
+opt.signcolumn = "yes:1"      -- Always show gutter (prevents shifting text)
 opt.mouse = "a"               -- Allow mouse usage (useful for scrolling)
 opt.clipboard = "unnamedplus" -- Default clipboard
 
@@ -31,3 +31,6 @@ opt.swapfile = false
 opt.backup = false
 opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 opt.undofile = true
+
+-- UI
+opt.showtabline = 2

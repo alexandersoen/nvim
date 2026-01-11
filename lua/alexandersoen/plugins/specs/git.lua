@@ -6,12 +6,13 @@ return {
     mini_diff.setup({
       -- Use icons in the sign column
       view = {
-        style = 'sign',
-        signs = {
-          add = '▎',
-          change = '▎',
-          delete = ' ',
-        },
+        style = "number",
+        --        style = 'sign',
+        --        signs = {
+        --          add = '▎',
+        --          change = '▎',
+        --          delete = ' ',
+        --        },
       },
       mappings = {
         -- Disable, just do it the usual way

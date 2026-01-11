@@ -12,7 +12,7 @@ return {
       scope = "git",
       icons = true,
       statusline = {
-        active = "[%s]",   -- Format for the current file's tab
+        active = " %s ",   -- We are parsing this (don't format)
         inactive = " %s ", -- Format for other tabs
         include_icon = false,
       }
@@ -43,6 +43,7 @@ return {
     vim.keymap.set("n", "gt", function()
       grapple.cycle_tags("next")
     end)
+
     vim.keymap.set("n", "gT", function()
       grapple.cycle_tags("prev")
     end)

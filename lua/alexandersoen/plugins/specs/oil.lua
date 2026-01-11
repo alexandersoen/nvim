@@ -45,7 +45,7 @@ return {
             end
           end,
         },
-        ["<leader>pe"] = { "actions.close", mode = "n" },
+        ["<leader>pE"] = { "actions.close", mode = "n" },
       }
     })
 
