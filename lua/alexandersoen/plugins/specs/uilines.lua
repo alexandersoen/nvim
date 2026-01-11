@@ -1,5 +1,4 @@
 -- UI for blah-lines. Currently only working on the "bufferline" components.
--- Making this work with the grapple list.
 
 -- Flag to update the "ContextTab"
 local contexttab_needs_update = true

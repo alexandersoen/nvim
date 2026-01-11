@@ -11,7 +11,7 @@ In order of importance (?), not necessarily in implementation order.
 - [ ] Python setup.
 - [x] Tab complete / suggestions (Switched to blink.cmp).
 - [x] Setup `folke/trouble.nvim`.
-- [ ] Setup `mbbill/undotree`.
+- [x] Setup `mbbill/undotree`.
 - [x] Some type of colour scheme.
 - [ ] LLM / Agentic memes ?
 - [x] Change from netwr to oil.nvim.
