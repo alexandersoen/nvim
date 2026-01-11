@@ -18,3 +18,4 @@ In order of importance (?), not necessarily in implementation order.
 - [ ] LLM / Agentic memes ?
 - [x] Change from netwr to oil.nvim.
 - [x] Add some gitsigns.
+- [ ] Fix flicker on `neovim` command.
