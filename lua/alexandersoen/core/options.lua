@@ -35,3 +35,4 @@ opt.undofile = true
 -- UI
 opt.showtabline = 2
 opt.shortmess:append("I")
+opt.winborder = "rounded"

@@ -14,6 +14,10 @@ M.config = {
       settings = {
         Lua = {
           diagnostics = { globals = { 'vim' } },
+          workspace = {
+            checkThirdParty = false,
+            library = { vim.env.VIMRUNTIME, },
+          },
           format = {
             enable = true,
             defaultConfig = {

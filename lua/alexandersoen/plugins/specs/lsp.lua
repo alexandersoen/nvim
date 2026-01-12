@@ -69,12 +69,15 @@ return {
         map("gd", vim.lsp.buf.definition, "Go to Definition")
         map("gr", require("telescope.builtin").lsp_references, "Go to References")
         map("K", vim.lsp.buf.hover, "Hover Documentation")
-        map("<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
-        map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
 
         map("<leader>e", vim.diagnostic.open_float, "Show Diagnostic Error")
-        map("[d", vim.diagnostic.goto_prev, "Previous Diagnostic")
-        map("]d", vim.diagnostic.goto_next, "Next Diagnostic")
+
+        -- These are built in (check 0.11 blog)
+        -- map("<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
+        -- map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
+
+        -- map("[d", vim.diagnostic.goto_prev, "Previous Diagnostic")
+        -- map("]d", vim.diagnostic.goto_next, "Next Diagnostic")
       end,
     })
   end,
