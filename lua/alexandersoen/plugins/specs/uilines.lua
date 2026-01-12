@@ -1,16 +1,15 @@
 -- UI for blah-lines. Currently only working on the "bufferline" components.
 
--- Flag to update the "ContextTab"
-local contexttab_needs_update = true
+-- Update the tabline
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
-    contexttab_needs_update = true
+    vim.cmd.redrawtabline()
   end,
 })
 vim.api.nvim_create_autocmd("User", {
   pattern = { "GrappleUpdate", "GrappleTag", "GrappleUntag" },
   callback = function()
-    contexttab_needs_update = true
+    vim.cmd.redrawtabline()
   end,
 })
 
@@ -61,10 +60,6 @@ return {
         if self.filename == "" then self.filename = "[No Name]" end
       end,
 
-      update = function()
-        return contexttab_needs_update
-      end,
-
       provider = function(self)
         if grapple.exists() then return " -- GRAPPLE -- " end
         return " " .. self.filename .. " "
@@ -79,6 +74,7 @@ return {
       provider = function(self)
         return " [" .. self.grapplenum .. ": " .. (self.filename or "???") .. "] "
       end,
+
       hl = function(self)
         return self.is_active and { fg = "green", bold = true } or { fg = "gray" }
       end,
