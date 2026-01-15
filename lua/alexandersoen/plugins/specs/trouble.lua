@@ -2,7 +2,19 @@
 
 return {
   "folke/trouble.nvim",
-  opts = {}, -- for default options, refer to the configuration section for custom setup.
+  opts = {
+    modes = {
+      spelling = {
+        mode = "diagnostics",
+        filter = function(items)
+          return vim.tbl_filter(function(item)
+            local source = item["item.source"]
+            return source == "typos" or source == "LTeX"
+          end, items)
+        end
+      },
+    },
+  },
   cmd = "Trouble",
   keys = {
     {
@@ -24,6 +36,17 @@ return {
       "<leader>tq",
       "<cmd>Trouble qflist toggle<cr>",
       desc = "Quickfix List (Trouble)",
+    },
+    -- Doesn't work :(
+    -- Appears in quick fix at least
+    { "<leader>ts", "<cmd>Trouble spelling toggle filter.buf=0 focus=false<cr>", desc = "Buffer Spell Check" },
+    {
+      "<leader>tS",
+      function()
+        vim.cmd("SpellingScan")
+        vim.cmd("Trouble spelling toggle focus=false")
+      end,
+      desc = "Global Spell Check"
     },
   },
 }

@@ -36,3 +36,21 @@ opt.undofile = true
 opt.showtabline = 2
 opt.shortmess:append("I")
 opt.winborder = "rounded"
+
+-- Force specifically for Python files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "python",
+  callback = function()
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.tabstop = 2
+    vim.opt_local.softtabstop = 2
+  end,
+})
+
+-- Djangoing
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = "**/templates/*.html",
+  callback = function()
+    vim.bo.filetype = "htmldjango"
+  end,
+})

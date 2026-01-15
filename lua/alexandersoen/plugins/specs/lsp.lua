@@ -15,7 +15,7 @@ return {
 
     -- Setup Mason first
     mason.setup()
-    mason_lspconfig.setup()
+    mason_lspconfig.setup({ ensure_installed = { "typos_lsp", "ltex" } })
 
     -- Build your servers table
     local langconfigs = require("alexandersoen.core.languages").config
@@ -52,13 +52,38 @@ return {
           }, cfg.lsp_opts or {})
 
           vim.lsp.config(cfg.lsp, opts)
+          vim.lsp.enable(cfg.lsp)
         else
           vim.notify("LSP Config: Server " .. server_name .. " not found in lspconfig", vim.log.levels.WARN)
         end
       end
     end
 
-    -- Autocmd keymaps
+    -- Spelling with typos_lsp
+    vim.opt.spell = false -- Disable native vim
+    vim.api.nvim_set_hl(0, "TyposUnderline", { undercurl = true, sp = "LightGrey" })
+    vim.api.nvim_create_autocmd("LspAttach", {
+      callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client and (client.name == "typos_lsp" or client.name == "ltex") then
+          local ns = vim.lsp.diagnostic.get_namespace(client.id)
+          vim.diagnostic.config({
+            underline = {
+              severity_highlight = {
+                [vim.diagnostic.severity.HINT] = "SpellingUnderline",
+                [vim.diagnostic.severity.INFO] = "SpellingUnderline",
+                [vim.diagnostic.severity.WARN] = "SpellingUnderline",
+              },
+            },
+            virtual_text = false,
+            signs = false,
+          }, ns)
+        end
+      end,
+    })
+    vim.lsp.enable({ "typos_lsp", "ltex" })
+
+    -- Auto command keymaps
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
         local bufnr = args.buf
@@ -67,7 +92,7 @@ return {
         end
 
         map("gd", vim.lsp.buf.definition, "Go to Definition")
-        map("gr", require("telescope.builtin").lsp_references, "Go to References")
+        map("grr", require("telescope.builtin").lsp_references, "Go to References")
         map("K", vim.lsp.buf.hover, "Hover Documentation")
 
         map("<leader>e", vim.diagnostic.open_float, "Show Diagnostic Error")
@@ -79,6 +104,18 @@ return {
         -- map("[d", vim.diagnostic.goto_prev, "Previous Diagnostic")
         -- map("]d", vim.diagnostic.goto_next, "Next Diagnostic")
       end,
+    })
+
+    -- Basic diagnostic stuff here (maybe move later)
+    vim.diagnostic.config({
+      -- The magic line:
+      severity_sort = true,
+
+      -- Other standard diagnostic settings you might want
+      virtual_text = true,
+      signs = true,
+      underline = true,
+      update_in_insert = false,
     })
   end,
 }

@@ -2,6 +2,7 @@ local utils = require("alexandersoen.utils")
 
 -- List of modules to load in order
 local modules = {
+  "alexandersoen.core.cmd",
   "alexandersoen.core.options",
   "alexandersoen.core.keymaps",
   "alexandersoen.core.netwr",
