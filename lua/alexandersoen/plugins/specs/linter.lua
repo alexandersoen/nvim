@@ -17,11 +17,10 @@ return {
     vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
       group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
       callback = function()
-        lint.try_lint()
         -- Only lint if we have a linter specified in the languages config.
-        -- if lang_configs[vim.bo.filetype] then
-        --   lint.try_lint()
-        -- end
+        if lang_configs[vim.bo.filetype] then
+          lint.try_lint()
+        end
       end,
     })
   end,

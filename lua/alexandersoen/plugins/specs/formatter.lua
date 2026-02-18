@@ -2,7 +2,9 @@
 
 return {
   "stevearc/conform.nvim",
-  opts = function()
+  config = function()
+    local conform = require("conform")
+
     local lang_configs = require("alexandersoen.core.languages").config
 
     local formatters = {}
@@ -20,10 +22,22 @@ return {
       end
     end
 
-    return {
+
+    conform.setup({
       formatters_by_ft = formatters,
       formatters = formatter_opts,
-      format_on_save = { timeout_ms = 500, lsp_fallback = true },
-    }
-  end,
+      -- format_on_save = { timeout_ms = 500, lsp_fallback = true },
+    })
+
+    vim.keymap.set("n", "gq",
+      function()
+        print("Formatting")
+        conform.format({
+          lsp_fallback = true,
+          async = false,
+          timeout_ms = 500
+        })
+      end,
+      { desc = "Format" })
+  end
 }

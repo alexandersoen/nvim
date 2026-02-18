@@ -1,4 +1,4 @@
--- Completition setup. Usin blink.cmp at the moment.
+-- Completion setup. Usinh blink.cmp at the moment.
 
 return {
   'saghen/blink.cmp',

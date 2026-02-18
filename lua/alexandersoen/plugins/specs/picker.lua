@@ -1,4 +1,4 @@
--- Setting for telescope.
+-- Setting for picker (currently telescope).
 
 return {
   "nvim-telescope/telescope.nvim",
