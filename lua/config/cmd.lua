@@ -1,5 +1,3 @@
--- Some user commands
-
 vim.api.nvim_create_user_command("SpellingScan", function()
   local ignore_patterns = {
     "%.gitignore$",
@@ -12,10 +10,6 @@ vim.api.nvim_create_user_command("SpellingScan", function()
     "%.bib$",
     "%.lock$",
   }
-  -- Use git ls-files to get a list of all non-ignored files
-  -- --others: show untracked files
-  -- --exclude-standard: use standard git ignore rules
-  -- --cached: show tracked files
   local handle = io.popen("git ls-files --cached --others --exclude-standard")
   if not handle then
     vim.notify("Not a git repository or git not found", vim.log.levels.ERROR)
@@ -29,7 +23,6 @@ vim.api.nvim_create_user_command("SpellingScan", function()
   for file in result:gmatch("[^\r\n]+") do
     local should_ignore = false
 
-    -- Check against the custom ignore list
     for _, pattern in ipairs(ignore_patterns) do
       if file:match(pattern) then
         should_ignore = true

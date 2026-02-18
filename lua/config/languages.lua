@@ -1,16 +1,9 @@
--- LSP server table.
--- All (hopefully) configs for languages should be here.
-
 local M = {}
 
--- Add any server you want here.
--- If it needs special config, add a table; otherwise, just leave it empty.
 M.config = {
-  -- Lua
   lua = {
     lsp = "lua_ls",
     formatter = "stylua",
-    -- linter = "selene",
     lsp_opts = {
       settings = {
         Lua = {
@@ -31,7 +24,6 @@ M.config = {
     },
   },
 
-  -- LaTeX
   tex = {
     lsp = "texlab",
     lsp_opts = {
@@ -60,7 +52,6 @@ M.config = {
     formatter_opts = { "--nowrap" },
   },
 
-  -- Python
   python = {
     lsp = "pyright",
   },
@@ -68,17 +59,14 @@ M.config = {
     lsp = "ruff",
   },
 
-  -- Django Template LSP
   django_html = {
     lsp = "djlsp",
     lsp_opts = {
       filetypes = { "htmldjango", "html" },
-      init_options = {
-      }
+      init_options = {}
     }
   },
 
-  -- Standard HTML + HTMX
   html = {
     lsp = "html",
     lsp_opts = {
