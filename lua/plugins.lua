@@ -22,7 +22,6 @@ return {
   "folke/trouble.nvim",
 
   "stevearc/conform.nvim",
-  "mfussenegger/nvim-lint",
 
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
