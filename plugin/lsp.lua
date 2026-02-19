@@ -8,21 +8,38 @@ vim.lsp.config('*', {
 })
 
 vim.diagnostic.config({
-  virtual_text = true,
+  virtual_text  = true,
   severity_sort = true,
-  underline = true,
-  signs = true,
-  update_in_insert = false,
-  float = {
-    style = 'minimal',
+  float         = {
+    style  = 'minimal',
     border = 'rounded',
     source = 'if_many',
     header = '',
     prefix = '',
   },
+  signs         = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '✘',
+      [vim.diagnostic.severity.WARN]  = '▲',
+      [vim.diagnostic.severity.HINT]  = '⚑',
+      [vim.diagnostic.severity.INFO]  = '»',
+    },
+  },
 })
 
 local caps = vim.lsp.protocol.make_client_capabilities()
+local ok, blink = pcall(require, "blink.cmp")
+if ok then
+  caps = vim.tbl_deep_extend('force', caps, blink.get_lsp_capabilities({}, false))
+  caps = vim.tbl_deep_extend('force', caps, {
+    textDocument = {
+      foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true
+      }
+    }
+  })
+end
 
 vim.lsp.config['lua_ls'] = {
   cmd = { 'lua-language-server' },

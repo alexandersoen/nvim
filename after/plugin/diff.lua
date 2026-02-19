@@ -10,6 +10,7 @@ mini_diff.setup({
   }
 })
 
-vim.keymap.set("n", "<leader>gd", function()
-  mini_diff.toggle_overlay()
-end, { desc = "(Toggle) git diffs" })
+vim.keymap.set("n", "<leader>gd", mini_diff.toggle_overlay, { desc = "(Toggle) git diffs" })
+vim.keymap.set("n", "<leader>gH", function()
+  mini_diff.do_hunks(0, "reset")
+end, { desc = "Undo git hunk" })

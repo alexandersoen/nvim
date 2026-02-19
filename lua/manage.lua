@@ -5,9 +5,8 @@ local function ensure(spec)
   local repo = type(spec) == "string" and spec or spec[1]
   local name = repo:match(".+/(.+)$")
   local path = plug_dir .. "/" .. name
-  local is_new = not vim.uv.fs_stat(path)
 
-  if is_new then
+  if not vim.uv.fs_stat(path) then
     vim.fn.mkdir(plug_dir, "p")
     local cmd = { "git", "clone", "--depth=1" }
     if spec.branch then

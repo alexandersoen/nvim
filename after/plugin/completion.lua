@@ -1,8 +1,9 @@
 local blink = require('blink.cmp')
 
 blink.setup({
-  fuzzy = { implementation = "lua" },
-
+  fuzzy = {
+    implementation = "lua",
+  },
   keymap = {
     ['<C-e>'] = { 'hide', 'fallback' },
     ['<C-y>'] = { 'accept', 'fallback' },
@@ -24,6 +25,7 @@ blink.setup({
   },
   completion = {
     menu = { auto_show = false },
+    documentation = { auto_show = true },
     ghost_text = { enabled = true, show_with_menu = true }
   },
   signature = {
@@ -33,6 +35,4 @@ blink.setup({
 
 vim.keymap.set('i', '<C-x><C-o>', function()
   blink.show()
-  blink.show_documentation()
-  blink.hide_documentation()
 end, { silent = false })
