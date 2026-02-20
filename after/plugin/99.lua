@@ -5,6 +5,12 @@ _99.setup({
   md_files = {
     "AGENTS.md",
   },
+  completion = {
+    custom_rules = {
+      "scratch/custom_rules/",
+    },
+    source = "blink",
+  },
   model = "opencode/glm-5-free"
 })
 
