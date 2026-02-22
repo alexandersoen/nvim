@@ -56,6 +56,13 @@ vim.api.nvim_create_autocmd({ 'FileChangedShellPost' }, {
   command = "echohl WarningMsg | echo 'File changed on disk. Buffer reloaded.' | echohl None",
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "tex", "plaintex" },
+  callback = function()
+    vim.opt_local.spell = true
+  end,
+})
+
 vim.g.netrw_banner = 1
 vim.g.netrw_liststyle = 3
 vim.g.netrw_winsize = 25
