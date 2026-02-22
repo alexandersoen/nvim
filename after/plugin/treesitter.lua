@@ -2,7 +2,7 @@ local ok, ts_configs = pcall(require, "nvim-treesitter.configs")
 if not ok then return end
 
 ts_configs.setup({
-  ensure_installed = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "latex", "bibtex" },
+  ensure_installed = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "latex", "bibtex", "css" },
   auto_install = true,
   highlight = {
     enable = true,
