@@ -1,17 +1,17 @@
 local _99 = require("99")
 
 _99.setup({
-  show_in_flight_requests = true,
-  md_files = {
-    "AGENTS.md",
-  },
-  completion = {
-    custom_rules = {
-      "scratch/custom_rules/",
-    },
-    source = "blink",
-  },
-  model = "opencode/minimax-m2.5-free"
+	show_in_flight_requests = true,
+	md_files = {
+		"AGENTS.md",
+	},
+	completion = {
+		custom_rules = {
+			"scratch/custom_rules/",
+		},
+		source = "blink",
+	},
+	model = "opencode/minimax-m2.5-free",
 })
 
 vim.keymap.set("n", "<leader>9s", _99.search)

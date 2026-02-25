@@ -1,21 +1,21 @@
 local grapple = require("grapple")
 
 grapple.setup({
-  scope = "git",
-  icons = true,
-  statusline = {
-    active = " %s ",
-    inactive = " %s ",
-    include_icon = false,
-  }
+	scope = "git",
+	icons = true,
+	statusline = {
+		active = " %s ",
+		inactive = " %s ",
+		include_icon = false,
+	},
 })
 
 vim.keymap.set("n", "<leader>a", function()
-  grapple.toggle()
-  vim.api.nvim_exec_autocmds("User", { pattern = "GrappleUpdate" })
-  vim.schedule(function()
-    vim.cmd("redrawstatus")
-  end)
+	grapple.toggle()
+	vim.api.nvim_exec_autocmds("User", { pattern = "GrappleUpdate" })
+	vim.schedule(function()
+		vim.cmd("redrawstatus")
+	end)
 end, { desc = "Toggle Grapple Tag & Refresh UI" })
 
 vim.keymap.set("n", "<C-e>", grapple.toggle_tags)
@@ -31,9 +31,9 @@ vim.keymap.set("n", "<leader>8", "<cmd>Grapple select index=8<cr>")
 vim.keymap.set("n", "<leader>9", "<cmd>Grapple select index=9<cr>")
 
 vim.keymap.set("n", "gt", function()
-  grapple.cycle_tags("next")
+	grapple.cycle_tags("next")
 end)
 
 vim.keymap.set("n", "gT", function()
-  grapple.cycle_tags("prev")
+	grapple.cycle_tags("prev")
 end)

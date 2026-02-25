@@ -30,44 +30,44 @@ set.shortmess:append("I")
 set.winborder = "rounded"
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "python",
-  callback = function()
-    vim.opt_local.shiftwidth = 2
-    vim.opt_local.tabstop = 2
-    vim.opt_local.softtabstop = 2
-  end,
+	pattern = "python",
+	callback = function()
+		vim.opt_local.shiftwidth = 2
+		vim.opt_local.tabstop = 2
+		vim.opt_local.softtabstop = 2
+	end,
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  pattern = "**/templates/*.html",
-  callback = function()
-    vim.bo.filetype = "htmldjango"
-  end,
+	pattern = "**/templates/*.html",
+	callback = function()
+		vim.bo.filetype = "htmldjango"
+	end,
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  pattern = "*.tcss",
-  callback = function()
-    vim.bo.filetype = "css"
-  end,
+	pattern = "*.tcss",
+	callback = function()
+		vim.bo.filetype = "css"
+	end,
 })
 
 set.autoread = true
-vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
-  pattern = '*',
-  command = "if mode() !~ '\\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif",
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+	pattern = "*",
+	command = "if mode() !~ '\\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif",
 })
 
-vim.api.nvim_create_autocmd({ 'FileChangedShellPost' }, {
-  pattern = '*',
-  command = "echohl WarningMsg | echo 'File changed on disk. Buffer reloaded.' | echohl None",
+vim.api.nvim_create_autocmd({ "FileChangedShellPost" }, {
+	pattern = "*",
+	command = "echohl WarningMsg | echo 'File changed on disk. Buffer reloaded.' | echohl None",
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "tex", "plaintex" },
-  callback = function()
-    vim.opt_local.spell = true
-  end,
+	pattern = { "markdown", "tex", "plaintex" },
+	callback = function()
+		vim.opt_local.spell = true
+	end,
 })
 
 vim.g.netrw_banner = 1
