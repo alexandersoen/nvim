@@ -11,7 +11,7 @@ _99.setup({
     },
     source = "blink",
   },
-  model = "opencode/glm-5-free"
+  model = "opencode/minimax-m2.5-free"
 })
 
 vim.keymap.set("n", "<leader>9s", _99.search)
