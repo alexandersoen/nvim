@@ -1,6 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "lua_ls", "pyright", "ruff", "texlab", "typos_lsp", "ltex", "bibtex-tidy" },
+	ensure_installed = { "lua_ls", "pyright", "ruff", "texlab", "typos_lsp", "ltex" },
 })
 
 vim.lsp.config("*", {
