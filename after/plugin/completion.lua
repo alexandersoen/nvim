@@ -1,5 +1,16 @@
 local blink = require("blink.cmp")
 
+local luasnip = require("luasnip")
+
+vim.api.nvim_create_autocmd("ModeChanged", {
+	pattern = "*:s*",
+	callback = function()
+		if luasnip.session and luasnip.session.current_tab then
+			luasnip.unlink_current()
+		end
+	end,
+})
+
 blink.setup({
 	fuzzy = {
 		implementation = "lua",
@@ -19,7 +30,12 @@ blink.setup({
 		use_nvim_cmp_as_default = true,
 		nerd_font_variant = "mono",
 	},
-	snippets = { preset = "luasnip" },
+	snippets = {
+		extend = true,
+		active = function()
+			return require("luasnip").session and require("luasnip").session.current_tab ~= nil
+		end,
+	},
 	sources = {
 		default = { "lsp", "path", "snippets", "buffer" },
 	},

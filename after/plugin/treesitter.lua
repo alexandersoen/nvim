@@ -5,7 +5,7 @@ end
 
 ts_configs.setup({
 	ensure_installed = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "latex", "bibtex", "css" },
-	auto_install = true,
+	auto_install = false,
 	highlight = {
 		enable = true,
 		additional_vim_regex_highlighting = false,

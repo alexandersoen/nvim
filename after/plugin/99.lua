@@ -1,24 +1,45 @@
-local _99 = require("99")
+local loaded_99 = false
 
-_99.setup({
-	show_in_flight_requests = true,
-	md_files = {
-		"AGENTS.md",
-	},
-	completion = {
-		custom_rules = {
-			"scratch/custom_rules/",
-		},
-		source = "blink",
-	},
-	model = "opencode/minimax-m2.5-free",
-})
+local function get_99()
+	if not loaded_99 then
+		loaded_99 = true
+		local _99 = require("99")
+		_99.setup({
+			show_in_flight_requests = true,
+			md_files = {
+				"AGENTS.md",
+			},
+			completion = {
+				custom_rules = {
+					"scratch/custom_rules/",
+				},
+				source = "blink",
+			},
+			model = "opencode/minimax-m2.5-free",
+		})
+		return _99
+	end
+	return require("99")
+end
 
-vim.keymap.set("n", "<leader>9s", _99.search)
-vim.keymap.set("v", "<leader>9v", _99.visual)
--- vim.keymap.set("v", "<leader>9vp", _99.visual_prompt)
-vim.keymap.set("n", "<leader>9x", _99.stop_all_requests)
-vim.keymap.set("n", "<leader>9i", _99.info)
-vim.keymap.set("n", "<leader>9l", _99.view_logs)
-vim.keymap.set("n", "<leader>9n", _99.next_request_logs)
-vim.keymap.set("n", "<leader>9p", _99.prev_request_logs)
+vim.keymap.set("n", "<leader>9s", function()
+	get_99().search()
+end)
+vim.keymap.set("v", "<leader>9v", function()
+	get_99().visual()
+end)
+vim.keymap.set("n", "<leader>9x", function()
+	get_99().stop_all_requests()
+end)
+vim.keymap.set("n", "<leader>9i", function()
+	get_99().info()
+end)
+vim.keymap.set("n", "<leader>9l", function()
+	get_99().view_logs()
+end)
+vim.keymap.set("n", "<leader>9n", function()
+	get_99().next_request_logs()
+end)
+vim.keymap.set("n", "<leader>9p", function()
+	get_99().prev_request_logs()
+end)

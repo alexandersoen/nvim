@@ -13,7 +13,11 @@ vim.api.nvim_create_autocmd("User", {
 
 local heirline = require("heirline")
 local utils = require("heirline.utils")
-local grapple = require("grapple")
+
+local function get_grapple()
+	local ok, grapple = pcall(require, "grapple")
+	return ok and grapple or nil
+end
 
 local function setup_colours()
 	return {
@@ -46,6 +50,11 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	group = "Heirline",
 })
 
+local function grapple_exists()
+	local grapple = get_grapple()
+	return grapple and grapple.exists()
+end
+
 local ContextTab = {
 	init = function(self)
 		self.filename = vim.fn.expand("%:t")
@@ -55,13 +64,13 @@ local ContextTab = {
 	end,
 
 	provider = function(self)
-		if grapple.exists() then
+		if grapple_exists() then
 			return " -- GRAPPLE -- "
 		end
 		return " " .. self.filename .. " "
 	end,
 	hl = function()
-		return grapple.exists() and { fg = "gray", italic = true } or { fg = "green", bold = true }
+		return grapple_exists() and { fg = "gray", italic = true } or { fg = "green", bold = true }
 	end,
 }
 

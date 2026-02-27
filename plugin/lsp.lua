@@ -1,7 +1,9 @@
-require("mason").setup()
-require("mason-lspconfig").setup({
-	ensure_installed = { "lua_ls", "pyright", "ruff", "texlab", "typos_lsp", "ltex" },
-})
+vim.defer_fn(function()
+	require("mason").setup()
+	require("mason-lspconfig").setup({
+		ensure_installed = { "lua_ls", "pyright", "ruff", "texlab", "typos_lsp", "ltex" },
+	})
+end, 0)
 
 vim.lsp.config("*", {
 	root_markers = { ".git" },
