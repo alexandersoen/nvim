@@ -1,3 +1,5 @@
+-- Some horrible mess to make a 'tabline' which interfaces with grapple.
+
 vim.api.nvim_create_autocmd("BufEnter", {
 	callback = function()
 		vim.cmd.redrawtabline()
@@ -14,34 +16,46 @@ vim.api.nvim_create_autocmd("User", {
 local heirline = require("heirline")
 local utils = require("heirline.utils")
 
-local function get_grapple()
-	local ok, grapple = pcall(require, "grapple")
-	return ok and grapple or nil
+local function get_hl_color(name, attribute, fallback)
+	local hl = utils.get_highlight(name)
+	if hl and hl[attribute] then
+		return hl[attribute]
+	end
+	for _, fallback_name in ipairs(fallback or {}) do
+		local fb_hl = utils.get_highlight(fallback_name)
+		if fb_hl and fb_hl[attribute] then
+			return fb_hl[attribute]
+		end
+	end
+	return nil
 end
 
 local function setup_colours()
+	local function c(name, attr, fallback)
+		return get_hl_color(name, attr, fallback)
+	end
 	return {
-		bright_bg = utils.get_highlight("Folded").bg,
-		bright_fg = utils.get_highlight("Folded").fg,
-		red = utils.get_highlight("DiagnosticError").fg,
-		dark_red = utils.get_highlight("DiffDelete").bg,
-		green = utils.get_highlight("String").fg,
-		blue = utils.get_highlight("Function").fg,
-		gray = utils.get_highlight("NonText").fg,
-		orange = utils.get_highlight("Constant").fg,
-		purple = utils.get_highlight("Statement").fg,
-		cyan = utils.get_highlight("Special").fg,
-		diag_warn = utils.get_highlight("DiagnosticWarn").fg,
-		diag_error = utils.get_highlight("DiagnosticError").fg,
-		diag_hint = utils.get_highlight("DiagnosticHint").fg,
-		diag_info = utils.get_highlight("DiagnosticInfo").fg,
-		git_del = utils.get_highlight("diffDeleted").fg,
-		git_add = utils.get_highlight("diffAdded").fg,
-		git_change = utils.get_highlight("diffChanged").fg,
+		bright_bg = c("ColorColumn", "bg", { "Normal", "CursorLine" }),
+		bright_fg = c("Folded", "fg", { "Comment", "Normal" }),
+		red = c("DiagnosticError", "fg", { "Error", "Red" }),
+		dark_red = c("DiffDelete", "bg", { "DiffDelete", "Error" }),
+		green = c("String", "fg", { "Green", "MoreMsg" }),
+		blue = c("Function", "fg", { "Blue", "Type" }),
+		gray = c("Comment", "fg", { "Grey", "Normal" }),
+		orange = c("Constant", "fg", { "Orange", "PreProc" }),
+		purple = c("Statement", "fg", { "Purple", "Statement" }),
+		cyan = c("Special", "fg", { "Cyan", "SpecialChar" }),
+		diag_warn = c("DiagnosticWarn", "fg", { "Warning", "Yellow" }),
+		diag_error = c("DiagnosticError", "fg", { "Error", "Red" }),
+		diag_hint = c("DiagnosticHint", "fg", { "Hint", "Cyan" }),
+		diag_info = c("DiagnosticInfo", "fg", { "Info", "Blue" }),
+		git_del = c("diffRemoved", "fg", { "DiffDelete", "Error" }),
+		git_add = c("diffAdded", "fg", { "DiffAdd", "Green" }),
+		git_change = c("diffChanged", "fg", { "DiffChange", "Yellow" }),
 	}
 end
 
-heirline.load_colors(setup_colours)
+heirline.load_colors(setup_colours())
 vim.api.nvim_create_augroup("Heirline", { clear = true })
 vim.api.nvim_create_autocmd("ColorScheme", {
 	callback = function()
@@ -49,6 +63,11 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	end,
 	group = "Heirline",
 })
+
+local function get_grapple()
+	local ok, grapple = pcall(require, "grapple")
+	return ok and grapple or nil
+end
 
 local function grapple_exists()
 	local grapple = get_grapple()
@@ -84,7 +103,7 @@ local GrappleTabTemplate = {
 	end,
 }
 
-local grapple_list = require("utils").make_grapplelist(GrappleTabTemplate)
+local grapple_list = require("utils").make_grapplelist(utils.surround({ "", "" }, "bright_bg", GrappleTabTemplate))
 
 heirline.setup({
 	tabline = {

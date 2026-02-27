@@ -17,6 +17,7 @@ return {
 
 	-- UI
 	"folke/tokyonight.nvim",
+	"uZer/pywal16.nvim",
 	"rebelot/heirline.nvim",
 
 	-- Navigation
