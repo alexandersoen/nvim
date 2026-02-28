@@ -6,6 +6,7 @@ conform.setup({
 		tex = { "tex-fmt" },
 		bib = { "bibtex-tidy" },
 		python = { "ruff_organize_imports", "ruff_format" },
+    nix = { "nixfmt" },
 	},
 })
 

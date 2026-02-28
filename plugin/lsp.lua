@@ -184,6 +184,13 @@ vim.lsp.config["djlsp"] = {
 	capabilities = caps,
 }
 
+vim.lsp.config["nil"] = {
+  cmd = { "nil" },
+  filetypes = { "nix" },
+  root_markers = { ".git" },
+	capabilities = caps,
+}
+
 vim.opt.spell = false
 vim.api.nvim_set_hl(0, "TyposUnderline", { undercurl = true, sp = "LightGrey" })
 
