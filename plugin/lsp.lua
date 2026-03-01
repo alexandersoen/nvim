@@ -1,7 +1,7 @@
 vim.defer_fn(function()
 	require("mason").setup()
 	require("mason-lspconfig").setup({
-		ensure_installed = { "lua_ls", "pyright", "ruff", "texlab", "typos_lsp", "ltex" },
+		-- ensure_installed = { "lua_ls", "pyright", "ruff", "texlab", "typos_lsp", "ltex" },
 	})
 end, 0)
 
@@ -191,6 +191,13 @@ vim.lsp.config["nil"] = {
 	capabilities = caps,
 }
 
+vim.lsp.config["gopls"] = {
+  cmd = { "gopls" },
+  filetypes = { "go", "gomod", "gowork", "gotmpl" },
+  root_markers = { "go.mod", "go.work", ".git" },
+	capabilities = caps,
+}
+
 vim.opt.spell = false
 vim.api.nvim_set_hl(0, "TyposUnderline", { undercurl = true, sp = "LightGrey" })
 
@@ -233,4 +240,6 @@ vim.lsp.enable({
 	"html",
 	"htmx",
 	"djlsp",
+  "nil",
+  "gopls",
 })

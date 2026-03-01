@@ -7,6 +7,7 @@ conform.setup({
 		bib = { "bibtex-tidy" },
 		python = { "ruff_organize_imports", "ruff_format" },
     nix = { "nixfmt" },
+    go = { "goimports", "gofmt" },
 	},
 })
 
