@@ -19,6 +19,7 @@ return {
 	"folke/tokyonight.nvim",
 	"uZer/pywal16.nvim",
 	"rebelot/heirline.nvim",
+  "brenoprata10/nvim-highlight-colors",
 
 	-- Navigation
 	"cbochs/grapple.nvim",
