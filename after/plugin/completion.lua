@@ -3,52 +3,47 @@ local blink = require("blink.cmp")
 local luasnip = require("luasnip")
 
 vim.api.nvim_create_autocmd("ModeChanged", {
-	pattern = "*:s*",
-	callback = function()
-		if luasnip.session and luasnip.session.current_tab then
-			luasnip.unlink_current()
-		end
-	end,
+  pattern = "*:s*",
+  callback = function()
+    if luasnip.session and luasnip.session.current_tab then
+      luasnip.unlink_current()
+    end
+  end,
 })
 
 blink.setup({
-	fuzzy = {
-		implementation = "lua",
-	},
-	keymap = {
-		["<C-e>"] = { "hide", "fallback" },
-		["<C-y>"] = { "accept", "fallback" },
-		["<C-k>"] = { "snippet_forward", "fallback" },
-		["<C-j>"] = { "snippet_backward", "fallback" },
-		["<C-p>"] = { "select_prev", "fallback_to_mappings" },
-		["<C-n>"] = { "select_next", "fallback_to_mappings" },
-		["<C-b>"] = { "scroll_documentation_up", "fallback" },
-		["<C-f>"] = { "scroll_documentation_down", "fallback" },
-		["<C-s>"] = { "show_signature", "hide_signature", "fallback" },
-	},
-	appearance = {
-		use_nvim_cmp_as_default = true,
-		nerd_font_variant = "mono",
-	},
-	snippets = {
-		extend = true,
-		active = function()
-			return require("luasnip").session and require("luasnip").session.current_tab ~= nil
-		end,
-	},
-	sources = {
-		default = { "lsp", "path", "snippets", "buffer" },
-	},
-	completion = {
-		menu = { auto_show = false },
-		documentation = { auto_show = true },
-		ghost_text = { enabled = true, show_with_menu = true },
-	},
-	signature = {
-		enabled = true,
-	},
+  fuzzy = {
+    implementation = "lua",
+  },
+  keymap = {
+    ["<C-e>"] = { "hide", "fallback" },
+    ["<C-y>"] = { "accept", "fallback" },
+    ["<C-k>"] = { "snippet_forward", "fallback" },
+    ["<C-j>"] = { "snippet_backward", "fallback" },
+    ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+    ["<C-n>"] = { "select_next", "fallback_to_mappings" },
+    ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+    ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+    ["<C-s>"] = { "show_signature", "hide_signature", "fallback" },
+  },
+  appearance = {
+    use_nvim_cmp_as_default = true,
+    nerd_font_variant = "mono",
+  },
+  snippets = { preset = 'luasnip' },
+  sources = {
+    default = { "lsp", "path", "snippets", "buffer" },
+  },
+  completion = {
+    menu = { auto_show = false },
+    documentation = { auto_show = true },
+    ghost_text = { enabled = true, show_with_menu = true },
+  },
+  signature = {
+    enabled = true,
+  },
 })
 
 vim.keymap.set("i", "<C-x><C-o>", function()
-	blink.show()
+  blink.show()
 end, { silent = false })
