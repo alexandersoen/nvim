@@ -1,4 +1,5 @@
 require("config.options")
 require("config.keybinds")
 require("config.cmd")
+require("config.autocmd")
 require("manage").setup()
