@@ -170,6 +170,13 @@ vim.lsp.config["html"] = {
   },
 }
 
+vim.lsp.config["bashls"] = {
+  cmd = { "bash-language-server", "start" },
+  filetypes = { "sh", "bash" },
+  root_markers = { ".git" },
+  capabilities = caps,
+}
+
 vim.lsp.config["htmx"] = {
   cmd = { "htmx-lsp" },
   filetypes = { "html", "htmldjango" },
@@ -255,6 +262,7 @@ vim.lsp.enable({
   "typos_lsp",
   "ltex",
   "html",
+  "bashls",
   "htmx",
   "djlsp",
   "nil",

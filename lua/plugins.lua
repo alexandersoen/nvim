@@ -17,6 +17,7 @@ return {
 
 	-- UI
 	"folke/tokyonight.nvim",
+  "rose-pine/neovim",
 	"uZer/pywal16.nvim",
 	"rebelot/heirline.nvim",
   "brenoprata10/nvim-highlight-colors",

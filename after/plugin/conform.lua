@@ -3,6 +3,8 @@ local conform = require("conform")
 conform.setup({
   formatters_by_ft = {
     lua = { "stylua" },
+    sh = { "shfmt" },
+    bash = { "shfmt" },
     tex = { "tex-fmt" },
     bib = { "bibtex-tidy" },
     python = { "ruff_organize_imports", "ruff_format" },
