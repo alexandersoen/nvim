@@ -15,7 +15,8 @@ local function get_99()
 				},
 				source = "blink",
 			},
-			model = "opencode/minimax-m2.5-free",
+			-- model = "opencode/minimax-m2.5-free",
+      model = "openai/gpt-5.4",
 		})
 		return _99
 	end
