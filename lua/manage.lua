@@ -1,6 +1,23 @@
 local M = {}
 local plug_dir = vim.fn.stdpath("data") .. "/plugins"
 
+local function generate_helptags(path)
+	local doc_dir = path .. "/doc"
+	if vim.uv.fs_stat(doc_dir) then
+		pcall(vim.cmd.helptags, vim.fn.fnameescape(doc_dir))
+	end
+end
+
+local function source_runtime_dir(path)
+	if not vim.uv.fs_stat(path) then
+		return
+	end
+
+	for _, file in ipairs(vim.fn.sort(vim.fn.glob(path .. "/*.{vim,lua}", true, true))) do
+		vim.cmd.source(file)
+	end
+end
+
 local function get_latest_tag(repo, version_pattern)
 	local cmd = "git ls-remote --tags https://github.com/" .. repo .. " 2>/dev/null"
 	local handle = io.popen(cmd)
@@ -55,7 +72,9 @@ local function ensure(spec)
 		vim.fn.system(cmd)
 	end
 
-	vim.opt.rtp:append(path)
+	vim.opt.rtp:prepend(path)
+	generate_helptags(path)
+	source_runtime_dir(path .. "/plugin")
 	local lua_path = path .. "/lua"
 	if vim.uv.fs_stat(lua_path) then
 		package.path = package.path .. ";" .. lua_path .. "/?.lua;" .. lua_path .. "/?/init.lua"

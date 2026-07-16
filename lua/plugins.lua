@@ -41,6 +41,9 @@ return {
 	"williamboman/mason-lspconfig.nvim",
 	"neovim/nvim-lspconfig",
 
+	-- LaTeX
+	"lervag/vimtex",
+
 	-- Tools
 	"ThePrimeagen/99",
 }

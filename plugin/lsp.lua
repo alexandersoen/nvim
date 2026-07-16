@@ -80,16 +80,16 @@ vim.lsp.config["pyright"] = {
     python = {
       analysis = {
         typeCheckingMode = "standard",
-        diagnosticSeverityOverrides = {
-          reportUnknownParameterType = "error",
-          reportMissingParameterType = "error",
-          reportArgumentType = "warning",
-          reportMissingTypeStubs = "none",
-          reportUnknownMemberType = "none",
-          reportUnusedImport = "none",
-          reportUnusedVariable = "none",
-          reportShadowedVariable = "none",
-        },
+        -- diagnosticSeverityOverrides = {
+        --   reportUnknownParameterType = "error",
+        --   reportMissingParameterType = "error",
+        --   reportArgumentType = "warning",
+        --   reportMissingTypeStubs = "none",
+        --   reportUnknownMemberType = "none",
+        --   reportUnusedImport = "none",
+        --   reportUnusedVariable = "none",
+        --   reportShadowedVariable = "none",
+        -- },
       },
     },
   },
@@ -113,7 +113,7 @@ vim.lsp.config["texlab"] = {
   settings = {
     texlab = {
       build = {
-        onSave = true,
+        onSave = false,
         executable = "latexmk",
         args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
       },
@@ -170,6 +170,52 @@ vim.lsp.config["html"] = {
   },
 }
 
+vim.lsp.config["cssls"] = {
+  cmd = { "vscode-css-language-server", "--stdio" },
+  filetypes = { "css", "scss", "less" },
+  root_markers = { "package.json", ".git" },
+  capabilities = caps,
+}
+
+vim.lsp.config["ts_ls"] = {
+  cmd = { "typescript-language-server", "--stdio" },
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+  },
+  root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
+  capabilities = caps,
+}
+
+vim.lsp.config["eslint"] = {
+  cmd = { "vscode-eslint-language-server", "--stdio" },
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+  },
+  root_markers = {
+    "eslint.config.js",
+    "eslint.config.cjs",
+    "eslint.config.mjs",
+    "eslint.config.ts",
+    ".eslintrc",
+    ".eslintrc.js",
+    ".eslintrc.cjs",
+    ".eslintrc.json",
+    "package.json",
+    ".git",
+  },
+  capabilities = caps,
+}
+
 vim.lsp.config["bashls"] = {
   cmd = { "bash-language-server", "start" },
   filetypes = { "sh", "bash" },
@@ -222,6 +268,14 @@ vim.lsp.config["clangd"] = {
   },
 }
 
+vim.lsp.config["jsonls"] = {
+  cmd = { "vscode-json-language-server", "--stdio" },
+  filetypes = { "json", "jsonc" },
+  root_markers = { ".git" },
+  capabilities = caps,
+}
+
+
 vim.opt.spell = false
 vim.api.nvim_set_hl(0, "TyposUnderline", { undercurl = true, sp = "LightGrey" })
 
@@ -262,10 +316,14 @@ vim.lsp.enable({
   "typos_lsp",
   "ltex",
   "html",
+  "cssls",
+  "ts_ls",
+  "eslint",
   "bashls",
   "htmx",
   "djlsp",
   "nil",
   "gopls",
   "clangd",
+  "jsonls",
 })
