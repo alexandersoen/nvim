@@ -4,7 +4,7 @@ if not ok then
 end
 
 ts_configs.setup({
-	ensure_installed = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "latex", "bibtex", "css" },
+	ensure_installed = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "bibtex", "css" },
 	auto_install = false,
 	highlight = {
 		enable = true,

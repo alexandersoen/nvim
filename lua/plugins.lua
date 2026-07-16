@@ -4,13 +4,13 @@ return {
 	"nvim-tree/nvim-web-devicons",
 
 	-- Treesitter
-	{ "nvim-treesitter/nvim-treesitter", branch = "master" },
+	{ "nvim-treesitter/nvim-treesitter", version = "master" },
 	"nvim-treesitter/nvim-treesitter-context",
 
 	-- Completion
+	"saghen/blink.lib",
 	"saghen/blink.cmp",
-	{ "saghen/blink.compat", version = "2.*" },
-	{ "L3MON4D3/LuaSnip", version = "v2.*" },
+	{ "L3MON4D3/LuaSnip", version = "v2.5.0" },
 
 	-- Fuzzy finder
 	"nvim-telescope/telescope.nvim",
