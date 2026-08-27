@@ -1,25 +1,60 @@
-local ok, ts_configs = pcall(require, "nvim-treesitter.configs")
+local ok, ts = pcall(require, "nvim-treesitter")
 if not ok then
-	return
+  return
 end
 
-ts_configs.setup({
-	ensure_installed = { "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "bibtex", "css" },
-	auto_install = false,
-	highlight = {
-		enable = true,
-		additional_vim_regex_highlighting = false,
-	},
-	indent = {
-		enable = true,
-	},
-	incremental_selection = {
-		enable = true,
-		keymaps = {
-			init_selection = "+",
-			node_incremental = "+",
-			scope_incremental = "_",
-			node_decremental = "-",
-		},
-	},
+local parsers = {
+  "bash",
+  "bibtex",
+  "c",
+  "css",
+  "latex",
+  "lua",
+  "markdown",
+  "markdown_inline",
+  "python",
+  "query",
+  "vim",
+  "vimdoc",
+}
+
+ts.setup()
+ts.install(parsers)
+
+vim.treesitter.language.register("bash", "sh")
+vim.treesitter.language.register("bibtex", "bib")
+vim.treesitter.language.register("latex", { "plaintex", "tex" })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {
+    "bash",
+    "bib",
+    "c",
+    "css",
+    "lua",
+    "markdown",
+    "plaintex",
+    "python",
+    "query",
+    "sh",
+    "tex",
+    "vim",
+    "vimdoc",
+  },
+  callback = function(event)
+    local lang = vim.treesitter.language.get_lang(event.match)
+    if not lang or not vim.treesitter.language.add(lang) then
+      return
+    end
+
+    vim.treesitter.start(event.buf, lang)
+
+    -- local win = vim.fn.bufwinid(event.buf)
+    -- if win ~= -1 then
+    --   vim.wo[win].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    --   vim.wo[win].foldmethod = "expr"
+    -- end
+
+    -- vim.bo[event.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
 })

@@ -4,7 +4,7 @@ return {
 	"nvim-tree/nvim-web-devicons",
 
 	-- Treesitter
-	{ "nvim-treesitter/nvim-treesitter", version = "master" },
+	{ "nvim-treesitter/nvim-treesitter", version = "main" },
 	"nvim-treesitter/nvim-treesitter-context",
 
 	-- Completion
@@ -43,6 +43,9 @@ return {
 
 	-- LaTeX
 	"lervag/vimtex",
+
+  -- Markdown
+  "yousefhadder/markdown-plus.nvim",
 
 	-- Tools
 	"ThePrimeagen/99",
