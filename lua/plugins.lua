@@ -40,6 +40,7 @@ return {
 	"williamboman/mason.nvim",
 	"williamboman/mason-lspconfig.nvim",
 	"neovim/nvim-lspconfig",
+	"Julian/lean.nvim",
 
 	-- LaTeX
 	"lervag/vimtex",

@@ -29,6 +29,10 @@
       "rev": "fae936abb5e0345b85c3a03ecf38525b0828b992",
       "src": "https://github.com/rebelot/heirline.nvim"
     },
+    "lean.nvim": {
+      "rev": "3d8027a96ada0fe43bdd01403e1bd4a09d175448",
+      "src": "https://github.com/Julian/lean.nvim"
+    },
     "markdown-plus.nvim": {
       "rev": "1f8659bac2e615d7e8d3bee6ad42fef888b4c170",
       "src": "https://github.com/yousefhadder/markdown-plus.nvim"
