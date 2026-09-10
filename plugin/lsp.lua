@@ -108,7 +108,16 @@ vim.lsp.config["ruff"] = {
 vim.lsp.config["texlab"] = {
   cmd = { "texlab" },
   filetypes = { "tex", "plaintex", "bib" },
-  root_markers = { ".latexmkrc", ".texlabrc", "texlab.toml", ".git" },
+  root_markers = {
+    ".latexmkrc",
+    "latexmkrc",
+    ".texlabroot",
+    "texlabroot",
+    ".texlabrc",
+    "texlab.toml",
+    "Tectonic.toml",
+    ".git",
+  },
   capabilities = caps,
   settings = {
     texlab = {
@@ -124,7 +133,9 @@ vim.lsp.config["texlab"] = {
       latexFormatter = "none",
       chktex = {
         onOpenAndSave = true,
-        onEdit = true,
+        -- Running ChkTeX for the whole buffer after every edit is costly in
+        -- large documents. Keep the same diagnostics, refreshed on save.
+        onEdit = false,
         additionalArgs = { "-n1", "-n2", "-n3", "-n9", "-n13" },
       },
       formatterLineLength = 80,
@@ -137,6 +148,15 @@ vim.lsp.config["typos_lsp"] = {
   filetypes = { "*" },
   root_markers = { "_typos.toml", ".typos.toml", "typos.toml", ".git" },
   capabilities = caps,
+}
+
+local ltex_language_ids = {
+  bib = "bibtex",
+  pandoc = "markdown",
+  plaintex = "tex",
+  rnoweb = "rsweave",
+  rst = "restructuredtext",
+  tex = "latex",
 }
 
 vim.lsp.config["ltex"] = {
@@ -157,6 +177,17 @@ vim.lsp.config["ltex"] = {
   },
   root_markers = { ".ltexrc", ".git" },
   capabilities = caps,
+  get_language_id = function(_, filetype)
+    return ltex_language_ids[filetype] or filetype
+  end,
+  -- Preserve live grammar checking, but only send changes after typing has
+  -- paused. Neovim's default is 150 ms, which is aggressive for LTeX's JVM.
+  flags = { debounce_text_changes = 750 },
+  settings = {
+    ltex = {
+      checkFrequency = "edit",
+    },
+  },
 }
 
 vim.lsp.config["html"] = {

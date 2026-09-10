@@ -10,6 +10,7 @@ local function setup_oil()
 	local root_dir = vim.fs.root(0, ".git")
 
 	oil.setup({
+		default_file_explorer = true,
 		columns = { "icon" },
 		view_options = {
 			show_hidden = true,
@@ -54,7 +55,4 @@ local function setup_oil()
 	end, { desc = "Open root directory" })
 end
 
-vim.keymap.set("n", "<leader>pe", function()
-	setup_oil()
-	vim.cmd("Oil")
-end, { desc = "Open parent directory" })
+setup_oil()

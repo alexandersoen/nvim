@@ -1,6 +1,11 @@
 local mini_diff = require("mini.diff")
 
 mini_diff.setup({
+	delay = {
+		-- Recompute after a typing pause instead of competing with LaTeX LSPs
+		-- and Tree-sitter on nearly every edit of a large tracked document.
+		text_change = 750,
+	},
 	view = {
 		style = "number",
 	},
